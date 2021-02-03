@@ -1,0 +1,8 @@
+name: LootBox
+version: 2.0
+main: jab.spigot.lootbox.Main
+api-version: "1.13"
+author: "Jab"
+commands:
+  lootbox:
+    aliases: ["lb"]

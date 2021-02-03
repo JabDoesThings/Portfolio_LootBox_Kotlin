@@ -1,0 +1,221 @@
+# Helpful links:
+#
+#   - Enchantments:
+#     https://hub.spigotmc.org/javadocs/spigot/org/bukkit/enchantments/Enchantment.html
+#
+#   - Materials:
+#     https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+#
+#   - Sounds:
+#     https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+#
+#   - Particles:
+#     https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html
+#
+
+## LOOTBOXES:
+#
+#  example_box:
+#
+#    # The amount of rolls (Items) that are generated for players when opening the lootbox.
+#    rolls: 1 # [default: 1]
+#
+#    # This section defines how the lootbox will look as a item when held in the hands of a player.
+#    lootbox_item:
+#
+#      # The MATERIAL type of the lootbox item.
+#      material_type: CHEST
+#
+#      # The displayed name of the item.
+#      display_name: "&cExample &fLootbox"
+#
+#      # The lore for the lootbox item.
+#      # NOTE: Use '%table%' to display the contents of the lootbox, with their respective roll chances.
+#      lore:
+#        - "..."
+#        - "%table%"
+#        - "..."
+#
+#    # The items section defines the items & their weights for rolling when the lootbox is opened by a player.
+#    #   - The item's weight cannot be non-positive integer values.
+#    items:
+#      example_item: 1
+#
+#    # (Optional) Define these sections if you want to trigger effects & messages when the lootbox is opened.
+#    on_open:
+#
+#      # (Optional) This sound will play where the player is when opening the lootbox.
+#      sound_effect:
+#
+#        # The SOUND Type to play.
+#        type: BLOCK_BEACON_ACTIVATE
+#
+#        # The volume of the sound. (0 ->)
+#        volume: 1 # [default: 1]
+#
+#        # The pitch of the sound. (0 ->)
+#        pitch: 1 # [default: 1]
+#
+#      # (Optional) This particle effect will play at the player's location when finishing opening the lootbox.
+#      particle: EXPLOSION_HUGE
+lootboxes:
+
+  super_box:
+    rolls: 1
+    lootbox_item:
+      material_type: CHEST
+      display_name: "&eSuper Box!"
+      lore:
+        - "&l&m&7--------------------------------------"
+        - "&fThis box contains super items!"
+        - "&fContents:"
+        - "%table%"
+        - "&l&m&7--------------------------------------"
+    items:
+      super_axe: 40
+      super_pickaxe: 10
+      super_shovel: 2
+      super_sword: 1
+
+  super_box_2:
+    rolls: 2
+    lootbox_item:
+      material_type: ENDER_CHEST
+      display_name: "&eSuper Box V2"
+      lore:
+        - "&l&m&7--------------------------------------"
+        - "&fThis box contains super items!"
+        - "&fContents:"
+        - "%table%"
+        - "&l&m&7--------------------------------------"
+    items:
+      super_axe: 10
+      super_pickaxe: 4
+      super_shovel: 5
+      super_sword: 5
+    on_open:
+      sound_effect:
+        type: ENTITY_ENDER_DRAGON_GROWL
+        volume: 1
+        pitch: 1
+      particle: DRAGON_BREATH
+
+## ITEMS
+#
+# example_item:
+#
+#   # The MATERIAL type for the item.
+#   material_type: DIAMOND_SWORD
+#
+#   # (Optional) The displayed name for the item.
+#   display_name: "&7Example &fItem"
+#
+#   # (Optional) The displayed lore for the item.
+#   lore:
+#     - "Example lore"
+#     - "..."
+#
+#   # (Optional) Define this section if you want the item to have enchantments.
+#   enchantments:
+#
+#     # [ENCHANTMENT]: amplifier
+#     POWER: 3
+#
+items:
+
+  super_axe:
+    material_type: DIAMOND_AXE
+    display_name: "&cSuper &fAxe"
+    lore:
+      - "&m--------------------------"
+      - "This is a super-duper axe!"
+      - "&m--------------------------"
+    enchantments:
+      POWER: 3
+
+  super_pickaxe:
+    material_type: DIAMOND_PICKAXE
+    display_name: "&cSuper &fPick-axe"
+    lore:
+      - "&m--------------------------"
+      - "This is a super-duper pick-axe!"
+      - "&m--------------------------"
+    enchantments:
+      POWER: 3
+
+  super_shovel:
+    material_type: DIAMOND_SHOVEL
+    display_name: "&cSuper &fShovel"
+    lore:
+      - "&m--------------------------"
+      - "This is a super-duper shovel!"
+      - "&m--------------------------"
+    enchantments:
+      POWER: 3
+
+  super_sword:
+    material_type: DIAMOND_SWORD
+    display_name: "&cSuper &fSword"
+    lore:
+      - "&m--------------------------"
+      - "This is a super-duper sword!"
+      - "&m--------------------------"
+    enchantments:
+      POWER: 3
+
+## DIALOGS
+#
+#   These definitions are for dialogues used in-game for the plug-in.
+#
+dialog:
+
+  # %player% => The name of the player not found.
+  unknown_player: "&cERROR: Unknown player: '%player%'"
+
+  # %lootbox% => The name of the lootbox not found.
+  unknown_lootbox: "&cERROR: Unknown lootbox: '%lootbox%&r&c'"
+
+  # %item% => The name of the item not found.
+  unknown_item: "&cERROR: Unknown item: '%item%&r&c'"
+
+  command_give_help: "&7/lootbox [&6player&7] [&6item&7|&6lootbox&7] [&6id&7] [&6amount&7]"
+
+  # %amount% => The amount specified that is invalid.
+  command_give_invalid_amount: "&cERROR: Invalid amount: '%amount%'. Amounts must be positive."
+
+  # %player% => The player whose inventory is full.
+  # %item% => The name of the item to give.
+  # %amount% => The amount of the item to give.
+  command_give_inventory_full_commander: "&cERROR: %player%'s inventory is too full to receive %item% &rx%amount%."
+
+  # %item% => The name of the item to give.
+  # %amount% => The amount of the item to give.
+  # %min_slots% => The minimum amount of slots required to clear for the player to receive the item.
+  command_give_inventory_full_recipient: "&cERROR: Your inventory is too full to receive %item% &rx%amount%. Clear at least %min_slots% item slots."
+
+  # %player% => The name of the player receiving the item.
+  # %item% => The name of the item the player is receiving.
+  # %amount% => The amount of the item the player is receiving.
+  command_give_commander: "&7%player% &7received %item% &rf%amount%."
+
+  # %item% => The name of the item the player is receiving.
+  # %amount% => THe amount of the item the player is receiving.
+  command_give_recipient: "&7You received %item% &rf%amount%!"
+
+  # %item% => The item that the player can't receive.
+  # %min_slots% => The minimum amount of inventory slots required to clear in order to receive the item.
+  inventory_full_use: "&cERROR: You need at least %min_slots% empty slots in your inventory to use %item%&r&c."
+
+  # Rarity color codes for items under certain percentages.
+  #   E.G: item_rarity_color_1 = <=1% chance.
+  item_rarity_color_1: "&e"
+  item_rarity_color_5: "&c"
+  item_rarity_color_20: "&5"
+  item_rarity_color_50: "&d"
+  item_rarity_color_100: "&9"
+
+  # The dialog for '%table%' for lootbox lore.
+  #
+  # %item% => The name of the item.
+  # %chance% => The '%##.##' chance that the item will roll when opening a lootbox.
+  lootbox_table_line: "&f%item% &f→ %chance%"
