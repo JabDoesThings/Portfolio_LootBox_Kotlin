@@ -39,7 +39,7 @@ abstract class TrackedLivingEntity(var entity: LivingEntity) {
         }
     }
 
-    abstract fun onStart(): Boolean
-    abstract fun onUpdate(): Boolean
-    abstract fun onStop()
+    protected abstract fun onStart(): Boolean
+    protected abstract fun onUpdate(): Boolean
+    protected abstract fun onStop()
 }
