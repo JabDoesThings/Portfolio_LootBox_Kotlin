@@ -4,7 +4,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class WeightTable<E> {
-    private var entries: MutableList<WeightTableEntry<E>> = mutableListOf()
+    var entries: MutableList<WeightTableEntry<E>> = mutableListOf()
     private var built: Boolean = false
     private var table = ArrayList<E?>()
     private var random: Random? = null
