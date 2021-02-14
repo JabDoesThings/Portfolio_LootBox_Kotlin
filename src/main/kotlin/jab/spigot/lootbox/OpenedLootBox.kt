@@ -129,15 +129,15 @@ class OpenedLootBox(private val lootBox: LootBox, val player: Player, block: Blo
                     setRoll(++roll)
                 }
             } else {
-                val armorStandItem = this.armorStandItem!!
-                val armorStandLabel = this.armorStandLabel!!
+                val armorStandItem = this.armorStandItem
+                val armorStandLabel = this.armorStandLabel
 
                 if (tick < 20) {
                     val lerp = MathUtils.easeOut(tick.toDouble() / 20.0)
-                    val location = armorStandItem.location
+                    val location = armorStandItem!!.location
                     val locY = MathUtils.lerp(itemYStart, itemYStop, lerp)
                     location.y = locY
-                    armorStandItem.teleport(location)
+                    armorStandItem!!.teleport(location)
                 }
                 if (tick in 81..120) {
                     val lerp = MathUtils.easeOut((tick.toDouble() - 80) / 40.0)
@@ -155,12 +155,12 @@ class OpenedLootBox(private val lootBox: LootBox, val player: Player, block: Blo
                             }
                         }
                         toShow.append(ChatColor.MAGIC).append(ChatColor.stripColor(name.substring(lengthNow)))
-                        armorStandLabel.customName = toShow.toString()
+                        armorStandLabel!!.customName = toShow.toString()
                     }
                 }
                 when (tick) {
                     140 -> {
-                        itemStartLocation = armorStandItem.location
+                        itemStartLocation = armorStandItem!!.location
                     }
                     in 141..160 -> {
                         val lerp = MathUtils.easeIn((tick.toDouble() - 140) / 20.0)
@@ -169,8 +169,8 @@ class OpenedLootBox(private val lootBox: LootBox, val player: Player, block: Blo
                         val newY = MathUtils.lerp(itemStartLocation.y, playerLocation.y - 1, lerp)
                         val newZ = MathUtils.lerp(itemStartLocation.z, playerLocation.z, lerp)
                         val newLocation = Location(world, newX, newY, newZ)
-                        armorStandItem.teleport(newLocation)
-                        armorStandLabel.teleport(newLocation.add(0.0, 0.5, 0.0))
+                        armorStandItem!!.teleport(newLocation)
+                        armorStandLabel!!.teleport(newLocation.add(0.0, 0.5, 0.0))
                     }
                     161 -> {
                         removeStands()
@@ -182,8 +182,8 @@ class OpenedLootBox(private val lootBox: LootBox, val player: Player, block: Blo
                         val itemStack = rollSlots!![roll][rollTick++]
                         val pitch = MathUtils.lerp(1.0, 0.8, rollTick.toDouble() / (ROLL_SLOT_COUNT - 2).toDouble())
                         world.playSound(
-                            armorStandItem.location, Sound.UI_BUTTON_CLICK, 0.5f, pitch.toFloat())
-                        armorStandItem.setHelmet(itemStack)
+                            armorStandItem!!.location, Sound.UI_BUTTON_CLICK, 0.5f, pitch.toFloat())
+                        armorStandItem!!.setHelmet(itemStack)
 
                         rollTickLoop = 0
                     } else {
@@ -192,7 +192,7 @@ class OpenedLootBox(private val lootBox: LootBox, val player: Player, block: Blo
                 }
                 if (tick == 100) {
                     val itemStack = rollSlots!![roll][ROLL_SLOT_COUNT - 1]
-                    armorStandItem.setHelmet(itemStack)
+                    armorStandItem!!.setHelmet(itemStack)
                     world.playSound(armorStandItem.location, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 2f)
                 }
             }

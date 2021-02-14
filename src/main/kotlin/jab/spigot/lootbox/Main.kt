@@ -6,12 +6,15 @@ import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.ChatColor
 import org.bukkit.Material
+import org.bukkit.command.PluginCommand
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
 import org.bukkit.plugin.java.JavaPlugin
 
 /**
+ * JavaPlugin instance for the LootBox plug-in.
  *
+ * @author Jab
  */
 class Main : JavaPlugin() {
 
@@ -21,8 +24,32 @@ class Main : JavaPlugin() {
         private set
 
     override fun onEnable() {
+// Load config.
+
+
         // Load config.
         saveDefaultConfig()
+
+        // Read config.
+
+        // Read config.
+        cfgManager = CFGManager(this)
+        val cfgManager = this.cfgManager!!
+        cfgManager.read()
+
+        lootBoxManager = LootBoxManager(this)
+        val lootBoxManager = this.lootBoxManager!!
+        lootBoxManager.start()
+
+        // Register the command.
+
+        // Register the command.
+        val lootBoxCommand = LootBoxCommand(this)
+        val pCommand = getCommand("lootbox")
+            ?: throw RuntimeException(
+                "The command 'lootbox' does not exist for the Plugin. Disabling...")
+        pCommand.setExecutor(lootBoxCommand)
+        pCommand.tabCompleter = lootBoxCommand
 
 
     }

@@ -26,15 +26,16 @@ class LootBox(val manager: CFGManager, cfg: ConfigurationSection) {
         private set
     var particle: Particle?
         private set
+    var item: CFGItem
+        private set
     private val itemIdTable: HashMap<String, Int> = HashMap()
-    private var lootBoxItem: CFGItem
     private var cfgLootBoxItem: ConfigurationSection?
 
     init {
         if (!cfg.contains("lootbox_item")) {
             throw YAMLException("The lootbox '$id' does not have a defined 'lootbox_item'.")
         }
-        lootBoxItem = CFGLootBoxItem(this)
+        item = CFGLootBoxItem(this)
         this.cfgLootBoxItem = cfg.getConfigurationSection("lootbox_item")!!
 
         if (cfg.contains("rolls")) {
@@ -110,7 +111,7 @@ class LootBox(val manager: CFGManager, cfg: ConfigurationSection) {
             }
         }
         lootTable.build()
-        lootBoxItem.read(cfgLootBoxItem!!)
+        item.read(cfgLootBoxItem!!)
         cfgLootBoxItem = null
     }
 
@@ -121,7 +122,7 @@ class LootBox(val manager: CFGManager, cfg: ConfigurationSection) {
      * @param amount The amount of the item to give.
      */
     fun give(player: Player, amount: Int) {
-        lootBoxItem.give(player, amount)
+        item.give(player, amount)
     }
 
     fun roll(count: Int): Array<CFGItem?> {
@@ -133,7 +134,7 @@ class LootBox(val manager: CFGManager, cfg: ConfigurationSection) {
     }
 
     fun getName(): String? {
-        return this.lootBoxItem.displayName
+        return this.item.displayName
     }
 
     companion object {

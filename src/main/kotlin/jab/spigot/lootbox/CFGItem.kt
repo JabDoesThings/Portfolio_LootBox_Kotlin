@@ -99,12 +99,12 @@ open class CFGItem(var id: String?) {
      * @return Returns the amount of item slots required to represent the amount given.
      */
     fun getSlotCount(amount: Int): Int {
-        var amount = amount
+        var amount2 = amount
         checkIfLoaded()
         var count = 0
         val stackSize = itemStack!!.type.maxStackSize
-        while (amount > 0) {
-            amount -= stackSize
+        while (amount2 > 0) {
+            amount2 -= stackSize
             count++
         }
         return count
@@ -120,21 +120,21 @@ open class CFGItem(var id: String?) {
      * @param amount The amount of the item to give.
      */
     fun give(player: Player, amount: Int) {
-        var amount = amount
+        var amount2 = amount
         checkIfLoaded()
-        if (amount == 0) return
+        if (amount2 == 0) return
         if (!player.isOnline) return
         val playerInventory = player.inventory
         val maxStackSize = itemStack!!.type.maxStackSize
-        while (amount > maxStackSize) {
-            amount -= maxStackSize
+        while (amount2 > maxStackSize) {
+            amount2 -= maxStackSize
             val itemStack = itemStack!!.clone()
             itemStack.amount = maxStackSize
             playerInventory.addItem(itemStack)
         }
-        if (amount > 0) {
+        if (amount2 > 0) {
             val itemStack = itemStack!!.clone()
-            itemStack.amount = amount
+            itemStack.amount = amount2
             player.inventory.addItem(itemStack)
         }
     }

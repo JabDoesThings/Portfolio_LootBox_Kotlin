@@ -6,6 +6,11 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
+configurations {
+    shade
+    compile.extendsFrom shade
+}
+
 repositories {
     mavenCentral()
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
@@ -14,7 +19,8 @@ repositories {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+//    shade "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    shade "org.jetbrains.kotlin:kotlin-stdlib"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
@@ -23,4 +29,12 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)) {
+            exclude "META-INF", "META-INF/**", "**/about.html", "*/about.html", "about.html"
+        }
+    }
 }
