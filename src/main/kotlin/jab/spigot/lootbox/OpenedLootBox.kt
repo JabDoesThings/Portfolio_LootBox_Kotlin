@@ -129,8 +129,6 @@ class OpenedLootBox(private val lootBox: LootBox, val player: Player, block: Blo
                     setRoll(++roll)
                 }
             } else {
-                val armorStandItem = this.armorStandItem
-                val armorStandLabel = this.armorStandLabel
 
                 if (tick < 20) {
                     val lerp = MathUtils.easeOut(tick.toDouble() / 20.0)
@@ -193,7 +191,7 @@ class OpenedLootBox(private val lootBox: LootBox, val player: Player, block: Blo
                 if (tick == 100) {
                     val itemStack = rollSlots!![roll][ROLL_SLOT_COUNT - 1]
                     armorStandItem!!.setHelmet(itemStack)
-                    world.playSound(armorStandItem.location, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 2f)
+                    world.playSound(armorStandItem!!.location, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 2f)
                 }
             }
         }
@@ -274,14 +272,11 @@ class OpenedLootBox(private val lootBox: LootBox, val player: Player, block: Blo
     }
 
     private fun setRoll(roll: Int) {
-        val armorStandLabel = this.armorStandLabel!!
-
         tick = 0
         rollTick = 0
         this.roll = roll
         createStands()
-
-        armorStandLabel.customName = ChatColor.MAGIC.toString() + ChatColor.stripColor(names!![roll])
+        armorStandLabel!!.customName = ChatColor.MAGIC.toString() + ChatColor.stripColor(names!![roll])
     }
 
     private fun setOpen() {
