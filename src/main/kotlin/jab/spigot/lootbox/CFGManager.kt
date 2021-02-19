@@ -9,18 +9,19 @@ import org.bukkit.entity.Player
 import org.yaml.snakeyaml.error.YAMLException
 import java.text.DecimalFormat
 
-class CFGManager(val plugin: Main) {
+class CFGManager(private val plugin: Main) {
 
     val items: HashMap<String, CFGItem> = HashMap()
     val lootBoxes: HashMap<String, LootBox> = HashMap()
+    var commandGiveHelp: String? = null
+        private set
 
-    private var lootboxTableLine: String? = null
+    private var lootBoxTableLine: String? = null
     private var itemRarityColor1: String? = null
     private var itemRarityColor5: String? = null
     private var itemRarityColor20: String? = null
     private var itemRarityColor50: String? = null
     private var itemRarityColor100: String? = null
-    private var commandGiveHelp: String? = null
     private var commandGiveCommander: String? = null
     private var commandGiveRecipient: String? = null
     private var commandGiveInvalidAmount: String? = null
@@ -46,7 +47,7 @@ class CFGManager(val plugin: Main) {
         commandGiveInventoryFullCommander = color(dialog.getString("command_give_inventory_full_commander")!!)
         commandGiveInventoryFullRecipient = color(dialog.getString("command_give_inventory_full_recipient")!!)
         commandGiveHelp = color(dialog.getString("command_give_help")!!)
-        lootboxTableLine = color(dialog.getString("lootbox_table_line")!!)
+        lootBoxTableLine = color(dialog.getString("lootbox_table_line")!!)
         itemRarityColor1 = color(dialog.getString("item_rarity_color_1")!!)
         itemRarityColor5 = color(dialog.getString("item_rarity_color_5")!!)
         itemRarityColor20 = color(dialog.getString("item_rarity_color_20")!!)
@@ -119,7 +120,7 @@ class CFGManager(val plugin: Main) {
 
     /**
      * @param id The ID of the lootbox.
-     * @return Returns the lootbox with the ID given. If no lootbox ID matches the ID given, NULL is
+     * @return Returns the lootbox with the ID given. If no loot box ID matches the ID given, NULL is
      * returned.
      */
     fun getLootBox(id: String): LootBox? {
@@ -134,20 +135,6 @@ class CFGManager(val plugin: Main) {
      */
     fun getItem(id: String): CFGItem? {
         return items[formatId(id)]
-    }
-
-    /**
-     * @return Returns all loaded lootboxes.
-     */
-    fun getLootBoxes(): Collection<LootBox?> {
-        return lootBoxes.values
-    }
-
-    /**
-     * @return Returns all loaded items.
-     */
-    fun getItems(): Collection<CFGItem?> {
-        return items.values
     }
 
     fun getCommandGiveCommander(player: Player, item: String, amount: Int): String {
@@ -183,8 +170,8 @@ class CFGManager(val plugin: Main) {
             .replace("%min_slots%", "" + minSlots)
     }
 
-    fun getLootboxTableLine(item: String?, chance: String): String {
-        var result = lootboxTableLine!!
+    private fun getLootboxTableLine(item: String?, chance: String): String {
+        var result = lootBoxTableLine!!
         if (item != null) {
             result = result.replace("%item%", item)
         }
@@ -193,30 +180,6 @@ class CFGManager(val plugin: Main) {
 
     fun getCommandGiveInvalidAmount(amount: String?): String {
         return commandGiveInvalidAmount!!.replace("%amount%", amount!!)
-    }
-
-    fun getItemRarityColor1(): String? {
-        return itemRarityColor1
-    }
-
-    fun getItemRarityColor5(): String? {
-        return itemRarityColor5
-    }
-
-    fun getItemRarityColor20(): String? {
-        return itemRarityColor20
-    }
-
-    fun getItemRarityColor50(): String? {
-        return itemRarityColor50
-    }
-
-    fun getItemRarityColor100(): String? {
-        return itemRarityColor100
-    }
-
-    fun getCommandGiveHelp(): String? {
-        return commandGiveHelp
     }
 
     fun getUnknownItem(item: String): String {

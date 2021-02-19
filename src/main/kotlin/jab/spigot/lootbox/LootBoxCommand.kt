@@ -6,7 +6,6 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
-import org.bukkit.entity.Player
 import java.util.ArrayList
 
 /**
@@ -30,7 +29,7 @@ class LootBoxCommand(private val plugin: Main): CommandExecutor, TabCompleter {
 
         // Make sure the required arguments are present.
         if (args.size < 3 || args.size > 4) {
-            sender.sendMessage(mgr.getCommandGiveHelp()!!)
+            sender.sendMessage(mgr.commandGiveHelp!!)
             return true
         }
 
@@ -45,7 +44,7 @@ class LootBoxCommand(private val plugin: Main): CommandExecutor, TabCompleter {
         // Check if the commander wants a lootbox or item to give.
         val isLootbox = args[1].equals("lootbox", ignoreCase = true)
         if (!isLootbox && !args[1].equals("item", ignoreCase = true)) {
-            sender.sendMessage(mgr.getCommandGiveHelp()!!)
+            sender.sendMessage(mgr.commandGiveHelp!!)
             return true
         }
         val id = args[2]
@@ -115,7 +114,7 @@ class LootBoxCommand(private val plugin: Main): CommandExecutor, TabCompleter {
         val list: MutableList<String?> = ArrayList()
 
         // Player argument.
-        if (args.size == 1 && !args[0].isEmpty()) {
+        if (args.size == 1 && args[0].isNotEmpty()) {
             for (player in Bukkit.getOnlinePlayers()) {
                 val playerName = player.name
                 if (playerName.toLowerCase().contains(args[0].toLowerCase())) {
@@ -124,7 +123,7 @@ class LootBoxCommand(private val plugin: Main): CommandExecutor, TabCompleter {
             }
             return list
         } else if (args.size == 2) {
-            if (!args[1].isEmpty()) {
+            if (args[1].isNotEmpty()) {
                 if ("lootbox".contains(args[1].toLowerCase())) {
                     list.add("lootbox")
                 } else if ("item".contains(args[1].toLowerCase())) {
@@ -138,12 +137,12 @@ class LootBoxCommand(private val plugin: Main): CommandExecutor, TabCompleter {
         } else if (args.size == 3) {
             if (args[1].equals("lootbox", ignoreCase = true)) {
                 if (args[2].isEmpty()) {
-                    for (next in mgr.getLootBoxes()) {
-                        list.add(next!!.id)
+                    for (next in mgr.lootBoxes.values) {
+                        list.add(next.id)
                     }
                 } else {
-                    for (next in mgr.getLootBoxes()) {
-                        val id = next!!.id
+                    for (next in mgr.lootBoxes.values) {
+                        val id = next.id
                         if (id.toLowerCase().contains(args[2].toLowerCase())) {
                             list.add(id)
                         }
@@ -151,12 +150,12 @@ class LootBoxCommand(private val plugin: Main): CommandExecutor, TabCompleter {
                 }
             } else if (args[1].equals("item", ignoreCase = true)) {
                 if (args[2].isEmpty()) {
-                    for (next in mgr.getItems()) {
-                        list.add(next!!.id)
+                    for (next in mgr.items.values) {
+                        list.add(next.id)
                     }
                 } else {
-                    for (next in mgr.getItems()) {
-                        val id = next!!.id
+                    for (next in mgr.items.values) {
+                        val id = next.id
                         if (id!!.toLowerCase().contains(args[2].toLowerCase())) {
                             list.add(id)
                         }

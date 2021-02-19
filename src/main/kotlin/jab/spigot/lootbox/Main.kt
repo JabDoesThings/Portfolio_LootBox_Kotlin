@@ -6,7 +6,6 @@ import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.ChatColor
 import org.bukkit.Material
-import org.bukkit.command.PluginCommand
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
 import org.bukkit.plugin.java.JavaPlugin
@@ -20,17 +19,11 @@ class Main : JavaPlugin() {
 
     var cfgManager: CFGManager? = null
         private set
-    var lootBoxManager: LootBoxManager? = null
-        private set
+    private var lootBoxManager: LootBoxManager? = null
 
     override fun onEnable() {
-// Load config.
-
-
         // Load config.
         saveDefaultConfig()
-
-        // Read config.
 
         // Read config.
         cfgManager = CFGManager(this)
@@ -42,20 +35,20 @@ class Main : JavaPlugin() {
         lootBoxManager.start()
 
         // Register the command.
-
-        // Register the command.
         val lootBoxCommand = LootBoxCommand(this)
         val pCommand = getCommand("lootbox")
             ?: throw RuntimeException(
                 "The command 'lootbox' does not exist for the Plugin. Disabling...")
         pCommand.setExecutor(lootBoxCommand)
         pCommand.tabCompleter = lootBoxCommand
-
-
     }
 
     override fun onDisable() {
-        println("Goodbye, world!")
+        if (lootBoxManager != null && lootBoxManager!!.isRunning()) {
+            lootBoxManager!!.stop()
+            lootBoxManager = null
+        }
+        cfgManager = null
     }
 
     companion object {
@@ -87,32 +80,13 @@ class Main : JavaPlugin() {
             return false
         }
 
-        fun hasRoom(inventory: PlayerInventory, type: Material, amount: Int): Boolean {
-            // Start at number -5 to negate the armor slots.
-            var openAmount = -5
-            for (index in 0 until inventory.size - 5) {
-                val next = inventory.getItem(index)
-                if (next != null) {
-                    val nextType = next.type
-                    if (nextType == Material.AIR) {
-                        openAmount += type.maxStackSize
-                    } else if (nextType == type && next.amount < nextType.maxStackSize) {
-                        openAmount += type.maxStackSize - next.amount
-                    }
-                }
-                if (openAmount >= amount) {
-                    return true
-                }
-            }
-            return false
-        }
-
-        fun createItemHoverText(message: String?, item: ItemStack): TextComponent? {
+        @Suppress("DEPRECATION")
+        fun createItemHoverText(message: String?, item: ItemStack): TextComponent {
             val itemJson: String = NMSUtils.convertItemStackToJson(item)
             // Prepare a BaseComponent array with the itemJson as a text component.
             val hoverEventComponents = arrayOf<BaseComponent>(
                 TextComponent(
-                    itemJson) // The only element of the hover events basecomponents is the item json.
+                    itemJson) // The only element of the hover events base components is the item json.
             )
             // Create the hover event.
             val event = HoverEvent(HoverEvent.Action.SHOW_ITEM, hoverEventComponents)
