@@ -152,47 +152,47 @@ class CFGManager(val plugin: Main) {
 
     fun getCommandGiveCommander(player: Player, item: String, amount: Int): String {
         return commandGiveCommander!!
-            .replace("%player%".toRegex(), player.name)
-            .replace("%item%".toRegex(), item)
-            .replace("%amount%".toRegex(), "" + amount)
+            .replace("%player%", player.name)
+            .replace("%item%", item)
+            .replace("%amount%", "" + amount)
     }
 
     fun getInventoryFullUse(item: String?, minSlots: Int): String {
-        return inventoryFullUse!!.replace("%min_slots%".toRegex(), "" + minSlots).replace("%item%".toRegex(), item!!)
+        return inventoryFullUse!!.replace("%min_slots%", "" + minSlots).replace("%item%", item!!)
     }
 
     fun getCommandGiveRecipiant(item: String, amount: Int): String {
-        return commandGiveRecipient!!.replace("%item%".toRegex(), item).replace("%amount%".toRegex(), "" + amount)
+        return commandGiveRecipient!!.replace("%item%", item).replace("%amount%", "" + amount)
     }
 
     fun getCommandGiveInventoryFullCommander(
         player: Player, item: String, amount: Int,
     ): String {
         return commandGiveInventoryFullCommander!!
-            .replace("%player%".toRegex(), player.name)
-            .replace("%item%".toRegex(), item)
-            .replace("%amount%".toRegex(), "" + amount)
+            .replace("%player%", player.name)
+            .replace("%item%", item)
+            .replace("%amount%", "" + amount)
     }
 
     fun getCommandGiveInventoryFullRecipient(
         item: String, amount: Int, minSlots: Int,
     ): String {
         return commandGiveInventoryFullRecipient!!
-            .replace("%item%".toRegex(), item)
-            .replace("%amount%".toRegex(), "" + amount)
-            .replace("%min_slots%".toRegex(), "" + minSlots)
+            .replace("%item%", item)
+            .replace("%amount%", "" + amount)
+            .replace("%min_slots%", "" + minSlots)
     }
 
     fun getLootboxTableLine(item: String?, chance: String): String {
         var result = lootboxTableLine!!
         if (item != null) {
-            result = result.replace("%item%".toRegex(), item)
+            result = result.replace("%item%", item)
         }
-        return result.replace("%chance%".toRegex(), chance)
+        return result.replace("%chance%", chance)
     }
 
     fun getCommandGiveInvalidAmount(amount: String?): String {
-        return commandGiveInvalidAmount!!.replace("%amount%".toRegex(), amount!!)
+        return commandGiveInvalidAmount!!.replace("%amount%", amount!!)
     }
 
     fun getItemRarityColor1(): String? {
@@ -220,15 +220,15 @@ class CFGManager(val plugin: Main) {
     }
 
     fun getUnknownItem(item: String): String {
-        return unknownItem!!.replace("%item%".toRegex(), item)
+        return unknownItem!!.replace("%item%", item)
     }
 
     fun getUnknownLootbox(lootBox: String): String {
-        return unknownLootbox!!.replace("%lootbox%".toRegex(), lootBox)
+        return unknownLootbox!!.replace("%lootbox%", lootBox)
     }
 
     fun getUnknownPlayer(player: String?): String {
-        return unknownPlayer!!.replace("%player%".toRegex(), player!!)
+        return unknownPlayer!!.replace("%player%", player!!)
     }
 
     companion object {

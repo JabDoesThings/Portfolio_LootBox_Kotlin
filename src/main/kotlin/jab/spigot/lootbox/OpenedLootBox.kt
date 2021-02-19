@@ -96,13 +96,15 @@ class OpenedLootBox(private val lootBox: LootBox, val player: Player, block: Blo
             val itemName = itemStack.itemMeta!!.displayName
             items[index] = Main.createItemHoverText("$ITEM_BULLET$itemName\n".trimIndent(), itemStack)
         }
-        val line2 = TextComponent(LINE.trimIndent())
 
         // Broadcast the result.
         val spigot = Bukkit.spigot()
-        spigot.broadcast(line, header)
-        spigot.broadcast(*items)
-        spigot.broadcast(line2)
+        spigot.broadcast(line)
+        spigot.broadcast(header)
+        for (element in items) {
+            spigot.broadcast(element)
+        }
+        spigot.broadcast(line)
 
         // Play the sound if defined for the loot-box.
         this.lootBox.soundEffect?.broadcast()

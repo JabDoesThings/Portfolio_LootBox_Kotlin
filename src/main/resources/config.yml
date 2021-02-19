@@ -196,11 +196,11 @@ dialog:
   # %player% => The name of the player receiving the item.
   # %item% => The name of the item the player is receiving.
   # %amount% => The amount of the item the player is receiving.
-  command_give_commander: "&7%player% &7received %item% &rf%amount%."
+  command_give_commander: "&7%player% &7received %item% &r&fx%amount%."
 
   # %item% => The name of the item the player is receiving.
   # %amount% => THe amount of the item the player is receiving.
-  command_give_recipient: "&7You received %item% &rf%amount%!"
+  command_give_recipient: "&7You received %item% &r&fx%amount%!"
 
   # %item% => The item that the player can't receive.
   # %min_slots% => The minimum amount of inventory slots required to clear in order to receive the item.
